@@ -1,6 +1,7 @@
 import React from 'react';
 import {AbsoluteFill, Easing, interpolate, OffthreadVideo, staticFile, useCurrentFrame} from 'remotion';
 import {HOOK_TEMPLATE} from './hookTemplate.config';
+import {HookCard} from './HookCard';
 
 export interface ReelWithHookProps {
 	/** Path to the source video, relative to the public/ folder, e.g. "source.mov" or "input/new-video.mp4" */
@@ -24,7 +25,7 @@ export const ReelWithHook: React.FC<ReelWithHookProps> = ({
 	hookDurationInSeconds = 6,
 }) => {
 	const frame = useCurrentFrame();
-	const {fps, fadeInFrames, fadeOutDurationFrames, colors, plate, text} = HOOK_TEMPLATE;
+	const {fps, fadeInFrames, fadeOutDurationFrames, colors} = HOOK_TEMPLATE;
 
 	const hookVisibleEnd = Math.round(hookDurationInSeconds * fps);
 	const fadeOutStart = hookVisibleEnd - fadeOutDurationFrames;
@@ -48,8 +49,6 @@ export const ReelWithHook: React.FC<ReelWithHookProps> = ({
 	});
 	const translateY = slideIn + slideOut;
 
-	const hookLines = hookText.split('\n');
-
 	return (
 		<AbsoluteFill style={{backgroundColor: colors.background}}>
 			{/* Main video layer. If the source isn't already 9:16, objectFit "cover" crops it to fill the frame. */}
@@ -72,53 +71,7 @@ export const ReelWithHook: React.FC<ReelWithHookProps> = ({
 					justifyContent: 'flex-start',
 				}}
 			>
-				<div
-					style={{
-						position: 'absolute',
-						left: plate.sideMargin,
-						right: plate.sideMargin,
-						top: plate.topPosition,
-						display: 'flex',
-						alignItems: 'stretch',
-						borderRadius: plate.borderRadius,
-						background: colors.plateBackground,
-						backdropFilter: 'blur(10px)',
-						boxShadow: '0 24px 60px rgba(0,0,0,0.45)',
-						overflow: 'hidden',
-					}}
-				>
-					{/* Red accent line */}
-					<div
-						style={{
-							width: plate.accentWidth,
-							alignSelf: 'stretch',
-							background: `linear-gradient(180deg, ${colors.accentTop} 0%, ${colors.accentBottom} 100%)`,
-							boxShadow: '0 0 18px rgba(255,40,50,0.65)',
-						}}
-					/>
-
-					{/* Text block */}
-					<div
-						style={{
-							padding: `${plate.paddingTop}px ${plate.paddingRight}px ${plate.paddingBottom}px ${plate.paddingLeft}px`,
-							fontFamily: text.fontFamily,
-							fontWeight: text.fontWeight,
-							textTransform: 'uppercase',
-							color: colors.textColor,
-							fontSize: text.fontSize,
-							lineHeight: text.lineHeight,
-							letterSpacing: text.letterSpacing,
-							textShadow: '0 2px 12px rgba(0,0,0,0.5)',
-						}}
-					>
-						{hookLines.map((line, i) => (
-							<React.Fragment key={i}>
-								{line}
-								{i < hookLines.length - 1 && <br />}
-							</React.Fragment>
-						))}
-					</div>
-				</div>
+				<HookCard text={hookText} />
 			</AbsoluteFill>
 		</AbsoluteFill>
 	);

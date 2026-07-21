@@ -1,7 +1,23 @@
 /**
- * Default styling for the "hook overlay" Reels template (src/ReelWithHook.tsx).
+ * Default styling for the Reels templates (src/ReelWithHook.tsx, src/ReelWithSubtitles.tsx).
  * Tweak values here to restyle every future render without touching component logic.
  */
+
+const fontFamily =
+	'-apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif';
+
+// Shared brand palette used by both the hook card and the subtitle card, so they
+// always look like the same design system.
+export const BRAND_COLORS = {
+	// Background shown while the video is loading (never visible once the video plays)
+	background: '#000000',
+	// Dark semi-transparent plate background
+	plateBackground: 'rgba(10,10,12,0.6)',
+	// Red accent line gradient (top -> bottom)
+	accentTop: '#ff3b3b',
+	accentBottom: '#d0102b',
+	textColor: '#ffffff',
+};
 
 export const HOOK_TEMPLATE = {
 	fps: 30,
@@ -10,16 +26,7 @@ export const HOOK_TEMPLATE = {
 	fadeInFrames: 20,
 	fadeOutDurationFrames: 28,
 
-	colors: {
-		// Background shown while the video is loading (never visible once the video plays)
-		background: '#000000',
-		// Dark semi-transparent plate behind the hook text
-		plateBackground: 'rgba(10,10,12,0.6)',
-		// Red accent line gradient (top -> bottom)
-		accentTop: '#ff3b3b',
-		accentBottom: '#d0102b',
-		textColor: '#ffffff',
-	},
+	colors: BRAND_COLORS,
 
 	plate: {
 		// Distance from the left/right screen edges to the plate, in px (1080px-wide canvas)
@@ -39,7 +46,40 @@ export const HOOK_TEMPLATE = {
 		lineHeight: 1.28,
 		letterSpacing: 0.5,
 		fontWeight: 800,
-		fontFamily:
-			'-apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif',
+		fontFamily,
+	},
+};
+
+// Dialogue subtitle card shown after the hook disappears. Same design language
+// (colors, plate shape, accent line) as the hook, but bottom-anchored, smaller,
+// and in sentence case since it's continuous dialogue rather than a headline.
+export const SUBTITLE_TEMPLATE = {
+	fps: 30,
+
+	// How long each subtitle chunk fades in/out at its own edges, in frames.
+	chunkFadeFrames: 6,
+
+	colors: BRAND_COLORS,
+
+	plate: {
+		sideMargin: 64,
+		// Distance from the bottom of the screen to the bottom of the plate, in px
+		// (1920px-tall canvas). Anchoring from the bottom keeps the plate inside the
+		// mobile "safe zone" regardless of whether a chunk wraps to 1 or 2 lines.
+		bottomSafeMargin: 260,
+		borderRadius: 16,
+		accentWidth: 6,
+		paddingTop: 20,
+		paddingBottom: 20,
+		paddingLeft: 24,
+		paddingRight: 28,
+	},
+
+	text: {
+		fontSize: 40,
+		lineHeight: 1.32,
+		letterSpacing: 0.2,
+		fontWeight: 700,
+		fontFamily,
 	},
 };
