@@ -1,44 +1,60 @@
 import React from 'react';
 import {AbsoluteFill, Easing, interpolate, OffthreadVideo, staticFile, useCurrentFrame} from 'remotion';
+import {HOOK_TEMPLATE} from './hookTemplate.config';
 
-const fontFamily =
-	'-apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif';
-
-// Hook overlay is visible for the first 6 seconds (180 frames @ 30fps)
-const HOOK_VISIBLE_END = 180;
-const FADE_IN_END = 20;
-const FADE_OUT_START = 152;
-const FADE_OUT_END = HOOK_VISIBLE_END;
+export interface ReelWithHookProps {
+	/** Path to the source video, relative to the public/ folder, e.g. "source.mov" or "input/new-video.mp4" */
+	videoFileName: string;
+	/** The hook headline. Auto-uppercased and word-wrapped. Use "\n" for a manual line break. */
+	hookText: string;
+	/** How long the hook stays on screen, in seconds. Defaults to 6. */
+	hookDurationInSeconds?: number;
+	/**
+	 * Total length of the composition, in frames. Must match the source video's duration
+	 * (durationInSeconds * fps). Computed automatically by `npm run render:hook`.
+	 */
+	durationInFrames: number;
+}
 
 const easeOut = Easing.out(Easing.cubic);
 
-export const ReelWithHook: React.FC = () => {
+export const ReelWithHook: React.FC<ReelWithHookProps> = ({
+	videoFileName,
+	hookText,
+	hookDurationInSeconds = 6,
+}) => {
 	const frame = useCurrentFrame();
+	const {fps, fadeInFrames, fadeOutDurationFrames, colors, plate, text} = HOOK_TEMPLATE;
+
+	const hookVisibleEnd = Math.round(hookDurationInSeconds * fps);
+	const fadeOutStart = hookVisibleEnd - fadeOutDurationFrames;
 
 	const hookOpacity = interpolate(
 		frame,
-		[0, FADE_IN_END, FADE_OUT_START, FADE_OUT_END],
+		[0, fadeInFrames, fadeOutStart, hookVisibleEnd],
 		[0, 1, 1, 0],
 		{extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: easeOut}
 	);
 
-	const slideIn = interpolate(frame, [0, FADE_IN_END], [16, 0], {
+	const slideIn = interpolate(frame, [0, fadeInFrames], [16, 0], {
 		extrapolateLeft: 'clamp',
 		extrapolateRight: 'clamp',
 		easing: easeOut,
 	});
-	const slideOut = interpolate(frame, [FADE_OUT_START, FADE_OUT_END], [0, -10], {
+	const slideOut = interpolate(frame, [fadeOutStart, hookVisibleEnd], [0, -10], {
 		extrapolateLeft: 'clamp',
 		extrapolateRight: 'clamp',
 		easing: Easing.in(Easing.cubic),
 	});
 	const translateY = slideIn + slideOut;
 
+	const hookLines = hookText.split('\n');
+
 	return (
-		<AbsoluteFill style={{backgroundColor: '#000'}}>
-			{/* Main video layer, source is already 9:16 so it fills the frame with no cropping needed */}
+		<AbsoluteFill style={{backgroundColor: colors.background}}>
+			{/* Main video layer. If the source isn't already 9:16, objectFit "cover" crops it to fill the frame. */}
 			<OffthreadVideo
-				src={staticFile('source.mov')}
+				src={staticFile(videoFileName)}
 				style={{
 					width: '100%',
 					height: '100%',
@@ -59,13 +75,13 @@ export const ReelWithHook: React.FC = () => {
 				<div
 					style={{
 						position: 'absolute',
-						left: 64,
-						right: 64,
-						top: 1310,
+						left: plate.sideMargin,
+						right: plate.sideMargin,
+						top: plate.topPosition,
 						display: 'flex',
 						alignItems: 'stretch',
-						borderRadius: 18,
-						background: 'rgba(10,10,12,0.6)',
+						borderRadius: plate.borderRadius,
+						background: colors.plateBackground,
 						backdropFilter: 'blur(10px)',
 						boxShadow: '0 24px 60px rgba(0,0,0,0.45)',
 						overflow: 'hidden',
@@ -74,9 +90,9 @@ export const ReelWithHook: React.FC = () => {
 					{/* Red accent line */}
 					<div
 						style={{
-							width: 7,
+							width: plate.accentWidth,
 							alignSelf: 'stretch',
-							background: 'linear-gradient(180deg, #ff3b3b 0%, #d0102b 100%)',
+							background: `linear-gradient(180deg, ${colors.accentTop} 0%, ${colors.accentBottom} 100%)`,
 							boxShadow: '0 0 18px rgba(255,40,50,0.65)',
 						}}
 					/>
@@ -84,21 +100,23 @@ export const ReelWithHook: React.FC = () => {
 					{/* Text block */}
 					<div
 						style={{
-							padding: '34px 38px 34px 30px',
-							fontFamily,
-							fontWeight: 800,
+							padding: `${plate.paddingTop}px ${plate.paddingRight}px ${plate.paddingBottom}px ${plate.paddingLeft}px`,
+							fontFamily: text.fontFamily,
+							fontWeight: text.fontWeight,
 							textTransform: 'uppercase',
-							color: '#ffffff',
-							fontSize: 50,
-							lineHeight: 1.28,
-							letterSpacing: 0.5,
+							color: colors.textColor,
+							fontSize: text.fontSize,
+							lineHeight: text.lineHeight,
+							letterSpacing: text.letterSpacing,
 							textShadow: '0 2px 12px rgba(0,0,0,0.5)',
 						}}
 					>
-						РЕКТИФИКАЦИЯ —<br />
-						ЭТО НЕ УГАДЫВАНИЕ
-						<br />
-						ВРЕМЕНИ
+						{hookLines.map((line, i) => (
+							<React.Fragment key={i}>
+								{line}
+								{i < hookLines.length - 1 && <br />}
+							</React.Fragment>
+						))}
 					</div>
 				</div>
 			</AbsoluteFill>
