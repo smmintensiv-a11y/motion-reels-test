@@ -3,6 +3,7 @@ import {Composition} from 'remotion';
 import {SearchBarReel} from './SearchBarReel';
 import {ReelWithHook, ReelWithHookProps} from './ReelWithHook';
 import {ReelWithSubtitles, ReelWithSubtitlesProps} from './ReelWithSubtitles';
+import {ReelWithInserts, ReelWithInsertsProps} from './ReelWithInserts';
 
 export const FPS = 30;
 export const DURATION_IN_SECONDS = 8;
@@ -38,6 +39,25 @@ const REEL_WITH_SUBTITLES_DEFAULT_PROPS: ReelWithSubtitlesProps = {
 	durationInFrames: 447,
 };
 
+// Two short, paraphrased "insert" cards (not verbatim subtitles) start right when the
+// hook disappears (frame 180 @ 6s). Same freeze-on-last-frame technique as
+// ReelWithSubtitles gives them room to read comfortably past the clip's natural end.
+// durationInFrames = 180 (hook) + 66 + 10 (gap) + 72 (inserts) + 15 (hold) + 30 (fade).
+const REEL_WITH_INSERTS_DEFAULT_PROPS: ReelWithInsertsProps = {
+	videoFileName: 'source.mov',
+	hookText: 'РЕКТИФИКАЦИЯ —\nЭТО НЕ УГАДЫВАНИЕ\nВРЕМЕНИ',
+	hookDurationInSeconds: 6,
+	videoNaturalDurationInFrames: 224,
+	inserts: [
+		{text: 'Вот что значит\nлюбовь матери', durationInFrames: 66},
+		{text: '«Я тебя люблю» —\nзначит всё', durationInFrames: 72},
+	],
+	gapFrames: 10,
+	postInsertHoldFrames: 15,
+	fadeOutFrames: 30,
+	durationInFrames: 373,
+};
+
 export const Root: React.FC = () => {
 	return (
 		<>
@@ -70,6 +90,18 @@ export const Root: React.FC = () => {
 				height={1920}
 				defaultProps={REEL_WITH_SUBTITLES_DEFAULT_PROPS}
 				calculateMetadata={async ({props}: {props: ReelWithSubtitlesProps}) => ({
+					durationInFrames: props.durationInFrames,
+				})}
+			/>
+			<Composition
+				id="ReelWithInserts"
+				component={ReelWithInserts}
+				durationInFrames={REEL_WITH_INSERTS_DEFAULT_PROPS.durationInFrames}
+				fps={FPS}
+				width={1080}
+				height={1920}
+				defaultProps={REEL_WITH_INSERTS_DEFAULT_PROPS}
+				calculateMetadata={async ({props}: {props: ReelWithInsertsProps}) => ({
 					durationInFrames: props.durationInFrames,
 				})}
 			/>

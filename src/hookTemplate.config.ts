@@ -1,6 +1,7 @@
 /**
- * Default styling for the Reels templates (src/ReelWithHook.tsx, src/ReelWithSubtitles.tsx).
- * Tweak values here to restyle every future render without touching component logic.
+ * Default styling for the Reels templates (src/ReelWithHook.tsx, src/ReelWithSubtitles.tsx,
+ * src/ReelWithInserts.tsx). Tweak values here to restyle every future render without
+ * touching component logic.
  */
 
 const fontFamily =
@@ -80,6 +81,43 @@ export const SUBTITLE_TEMPLATE = {
 		lineHeight: 1.32,
 		letterSpacing: 0.2,
 		fontWeight: 700,
+		fontFamily,
+	},
+};
+
+// Short "insert" statement card shown after the hook disappears - a paraphrased
+// takeaway rather than a subtitle. Same design language as the hook (colors,
+// accent line, bold uppercase), but a small, center-anchored card instead of a
+// full-width plate, so it reads as a distinct visual beat.
+export const INSERT_TEMPLATE = {
+	fps: 30,
+
+	// How long each insert fades/slides in and out at its own edges, in frames.
+	fadeFrames: 10,
+	// How far (px) the card slides vertically during its fade in/out.
+	slideDistance: 18,
+
+	colors: BRAND_COLORS,
+
+	plate: {
+		// Card is centered horizontally and capped at this width so it stays "small".
+		maxWidth: 800,
+		// Distance from the bottom of the screen to the bottom of the card, in px
+		// (1920px-tall canvas) - keeps it in the safe zone regardless of line count.
+		bottomSafeMargin: 300,
+		borderRadius: 16,
+		accentWidth: 6,
+		paddingTop: 24,
+		paddingBottom: 24,
+		paddingLeft: 26,
+		paddingRight: 30,
+	},
+
+	text: {
+		fontSize: 42,
+		lineHeight: 1.3,
+		letterSpacing: 0.4,
+		fontWeight: 800,
 		fontFamily,
 	},
 };
