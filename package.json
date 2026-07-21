@@ -1,0 +1,20 @@
+{
+  "name": "motion-reels-search-bar",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Premium minimal motion design reel: glass search bar zoom-in with click and fade out.",
+  "scripts": {
+    "render": "remotion render src/index.ts SearchBarReel output/search-bar-reel.mp4"
+  },
+  "dependencies": {
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "remotion": "4.0.286",
+    "@remotion/cli": "4.0.286"
+  },
+  "devDependencies": {
+    "@types/react": "18.3.3",
+    "@types/node": "20.14.9",
+    "typescript": "5.5.3"
+  }
+}
