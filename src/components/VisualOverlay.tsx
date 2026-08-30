@@ -100,7 +100,11 @@ export const VisualOverlay: React.FC = () => {
     <AbsoluteFill style={{alignItems: 'center', justifyContent: 'flex-start', paddingTop: 280}}>
       <GptChip startFrame={84} endFrame={110} frame={frame} fps={fps} />
       <NumberBadge label="1" startFrame={112} endFrame={130} frame={frame} fps={fps} />
+      {/* "нифига не умеете" — the punchline of point 1, gets a cross mark */}
+      <NumberBadge label="✕" startFrame={132} endFrame={158} frame={frame} fps={fps} />
       <NumberBadge label="2" startFrame={160} endFrame={178} frame={frame} fps={fps} />
+      {/* "тоже умеете" — mirrors point 1's cross with a check, landing the joke's flip */}
+      <NumberBadge label="✓" startFrame={182} endFrame={208} frame={frame} fps={fps} />
     </AbsoluteFill>
   );
 };
