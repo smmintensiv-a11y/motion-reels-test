@@ -36,44 +36,7 @@
       .stage-light .grid-dots { color: var(--structural); opacity: 0.08; }
       .stage-dark .grid-dots { color: var(--structural); opacity: 0.1; }
 
-      /* ---- content-safe zone helpers ---- */
-      .icon-drift {
-        position: absolute;
-        width: 46px; height: 46px;
-        color: var(--ink);
-        opacity: 0.05;
-      }
-      .icon-drift svg { width: 100%; height: 100%; }
-
-      /* ---- slot H : hero solo (x430-650, y1120-1340) ---- */
-      .slot-h {
-        position: absolute; left: 430px; top: 1120px; width: 220px; height: 220px;
-        display: flex; align-items: center; justify-content: center;
-      }
-      .slot-h svg { width: 120px; height: 120px; }
-
-      /* ---- slot C : 3-channel row (reused, y1300-1490) ---- */
-      .slot-c-icon {
-        position: absolute; top: 1300px; width: 190px; height: 190px;
-        border-radius: 28px;
-        display: flex; align-items: center; justify-content: center;
-      }
-      .slot-c-icon svg { width: 104px; height: 104px; }
-      .slot-c-1 { left: 130px; }
-      .slot-c-2 { left: 350px; }
-      .slot-c-3 { left: 570px; }
-
-      /* ---- slot D : docked compact chain (y1080-1210) ---- */
-      .slot-d-icon {
-        position: absolute; top: 1080px; width: 130px; height: 130px;
-        border-radius: 22px;
-        display: flex; align-items: center; justify-content: center;
-      }
-      .slot-d-icon svg { width: 72px; height: 72px; }
-      .slot-d-voice { left: 100px; }
-      .slot-d-system { left: 330px; }
-
-      /* ---- text band (y1520-1740, shared by every text accent) ---- */
+      /* ---- text band (y1520-1740, shared by every text accent) — unchanged ---- */
       .text-band {
         position: absolute; left: 60px; top: 1520px; width: 960px; height: 220px;
         display: flex; align-items: center; justify-content: center;
@@ -86,16 +49,131 @@
       .text-band.max-emphasis p { font-size: 100px; }
       .text-band.max-emphasis .punch { text-shadow: 0 0 34px rgba(229, 35, 28, 0.55); }
 
-      /* ---- checkmark badge (55px, overlaid on channel icons) ---- */
-      .badge {
-        position: absolute; width: 55px; height: 55px; border-radius: 50%;
+      /* ---- cursor (hook scene) — unchanged ---- */
+      .cursor-wrap { position: absolute; width: 64px; height: 64px; }
+
+      /* ================= CARD SYSTEM (episodes 1/2/4) ================= */
+      .hero-card {
+        position: absolute;
+        background: var(--paper);
+        border-radius: 26px;
+        box-shadow: 0 26px 50px rgba(26, 26, 26, 0.18), 0 6px 14px rgba(26, 26, 26, 0.09);
+        border: 1px solid rgba(26, 26, 26, 0.06);
+      }
+      .card-header {
+        position: absolute; left: 0; top: 0; right: 0; height: 68px;
+        background: rgba(154, 154, 150, 0.16);
+        border-radius: 26px 26px 0 0;
+      }
+      .avatar-dot { position: absolute; border-radius: 50%; background: var(--ink); }
+      .bar-strong { position: absolute; height: 24px; border-radius: 12px; background: var(--ink); }
+      .bar-soft { position: absolute; height: 15px; border-radius: 8px; background: var(--structural); opacity: 0.55; }
+      .media-block { position: absolute; border-radius: 18px; background: var(--structural); opacity: 0.28; }
+      .corner-fold {
+        position: absolute; left: 0; top: 0; width: 0; height: 0;
+        border-style: solid; border-width: 30px 30px 0 0;
+        border-color: rgba(26, 26, 26, 0.1) transparent transparent transparent;
+        border-radius: 26px 0 0 0;
+      }
+      .header-rule { position: absolute; left: 0; right: 0; top: 68px; height: 1px; background: rgba(26, 26, 26, 0.08); }
+      .tag-pill { position: absolute; height: 20px; padding: 0 10px; border-radius: 10px; background: var(--accent); display: flex; align-items: center; }
+      .tag-pill span { display: block; width: 26px; height: 4px; border-radius: 2px; background: var(--paper); }
+      .proc-panel { position: absolute; left: 14px; top: 8px; right: 14px; bottom: 8px; border-radius: 16px; background: rgba(154, 154, 150, 0.1); }
+      .corner-badge {
+        position: absolute; width: 54px; height: 54px; border-radius: 50%;
         background: var(--accent);
         display: flex; align-items: center; justify-content: center;
+        box-shadow: 0 10px 22px rgba(229, 35, 28, 0.38);
       }
-      .badge svg { width: 34px; height: 34px; color: var(--paper); }
+      .corner-badge svg { width: 28px; height: 28px; color: var(--paper); }
+      .check-badge {
+        position: absolute; width: 54px; height: 54px; border-radius: 50%;
+        background: var(--accent);
+        display: flex; align-items: center; justify-content: center;
+        box-shadow: 0 10px 22px rgba(229, 35, 28, 0.38);
+        opacity: 0;
+      }
+      .check-badge svg { width: 32px; height: 32px; color: var(--paper); }
 
-      /* ---- cursor (hook scene) ---- */
-      .cursor-wrap { position: absolute; width: 64px; height: 64px; }
+      /* Telegram-style bubble: dark fill, asymmetric tail corner */
+      .bubble-dark {
+        background: var(--ink);
+        border-radius: 26px 26px 26px 6px;
+        box-shadow: 0 26px 50px rgba(26, 26, 26, 0.24), 0 6px 14px rgba(26, 26, 26, 0.12);
+      }
+      .bubble-dark .bar-strong { background: var(--paper); }
+      .bubble-dark .bar-soft { background: var(--paper); opacity: 0.4; }
+      .tg-pill {
+        position: absolute; height: 30px; border-radius: 15px;
+        background: rgba(255, 255, 255, 0.14);
+        display: flex; align-items: center; justify-content: center; gap: 4px;
+        color: var(--paper);
+      }
+      .tg-pill svg { width: 16px; height: 16px; }
+
+      /* ---- week card (episode 1) ---- */
+      .week-shadow {
+        position: absolute; left: 90px; top: 1080px; width: 900px; height: 240px;
+        background: var(--paper); border-radius: 26px;
+      }
+      .day-cell {
+        position: relative; width: 84px; height: 84px; border-radius: 20px;
+        background: rgba(154, 154, 150, 0.14);
+        display: flex; align-items: center; justify-content: center;
+        font-weight: 700; font-size: 24px; color: var(--ink);
+      }
+      .day-badge {
+        position: absolute; top: -8px; right: -8px; width: 22px; height: 22px;
+        border-radius: 50%; background: var(--accent);
+        box-shadow: 0 4px 10px rgba(229, 35, 28, 0.4);
+      }
+
+      /* ---- day-bar (episode 3) ---- */
+      .day-bar-track {
+        position: absolute; left: 90px; top: 1180px; width: 900px; height: 90px;
+        border-radius: 45px; background: rgba(154, 154, 150, 0.2); overflow: hidden;
+      }
+      .day-bar-fill {
+        position: absolute; left: 0; top: 0; height: 100%; width: 100%;
+        border-radius: 45px; background: var(--ink);
+        transform: scaleX(0); transform-origin: left center;
+      }
+      .day-bar-tick { position: absolute; top: 14px; width: 3px; height: 62px; background: var(--bg-light); opacity: 0.6; border-radius: 2px; }
+
+      /* ---- voice bubble + processing (episode 4) ---- */
+      .voice-bubble {
+        position: absolute; left: 70px; top: 1080px; width: 300px; height: 70px;
+        background: var(--ink); border-radius: 26px 26px 26px 6px;
+        box-shadow: 0 26px 50px rgba(26, 26, 26, 0.24), 0 6px 14px rgba(26, 26, 26, 0.12);
+        transform-origin: left center;
+      }
+      .voice-play {
+        position: absolute; left: 18px; top: 50%; margin-top: -27px; width: 54px; height: 54px;
+        border-radius: 50%; background: var(--paper);
+        display: flex; align-items: center; justify-content: center;
+      }
+      .voice-wave { position: absolute; left: 92px; top: 0; right: 90px; bottom: 0; display: flex; align-items: center; gap: 5px; }
+      .voice-wave i { display: block; width: 6px; border-radius: 3px; background: var(--paper); }
+      .voice-duration {
+        position: absolute; right: 16px; top: 50%; margin-top: -18px; height: 36px; padding: 0 14px;
+        border-radius: 18px; background: rgba(255, 255, 255, 0.14);
+        display: flex; align-items: center; color: var(--paper); font-weight: 600; font-size: 22px;
+      }
+
+      .processing-card {
+        position: absolute; left: 390px; top: 1080px; width: 620px; height: 70px;
+        background: var(--paper); border-radius: 26px;
+        box-shadow: 0 22px 44px rgba(26, 26, 26, 0.16), 0 5px 12px rgba(26, 26, 26, 0.08);
+        opacity: 0;
+      }
+      .proc-node { fill: var(--ink); transform-box: fill-box; transform-origin: center; }
+      .proc-line { stroke: var(--structural); stroke-width: 2.5; }
+
+      /* ---- 3-card row (episode 2 intro + episode 4 payoff) ---- */
+      .row-card { position: absolute; top: 1170px; width: 300px; height: 280px; opacity: 0; }
+      .slot-a { left: 70px; }
+      .slot-b { left: 390px; }
+      .slot-c { left: 710px; }
     </style>
   </head>
   <body>
@@ -118,57 +196,72 @@
         <div class="grid-dots"></div>
       </div>
 
-      <!-- ================= SCENE A: thesis (cycle icon, slot H) ================= -->
-      <div class="clip" id="icon-cycle-wrap" data-start="0.7" data-duration="8.5" style="pointer-events:none">
-        <div class="slot-h" id="icon-cycle" style="color: var(--ink)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="m17 2 4 4-4 4" /><path d="M3 11v-1a4 4 0 0 1 4-4h14" />
-            <path d="m7 22-4-4 4-4" /><path d="M21 13v1a4 4 0 0 1-4 4H3" />
-          </svg>
-        </div>
-        <!-- background icon-pattern drift: faint repeated cycle glyph, diagonal -->
-        <div class="icon-drift" id="drift-1" style="left:120px; top:1200px;">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m17 2 4 4-4 4" /><path d="M3 11v-1a4 4 0 0 1 4-4h14" /><path d="m7 22-4-4 4-4" /><path d="M21 13v1a4 4 0 0 1-4 4H3" /></svg>
-        </div>
-        <div class="icon-drift" id="drift-2" style="left:860px; top:1160px;">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m17 2 4 4-4 4" /><path d="M3 11v-1a4 4 0 0 1 4-4h14" /><path d="m7 22-4-4 4-4" /><path d="M21 13v1a4 4 0 0 1-4 4H3" /></svg>
-        </div>
-        <div class="icon-drift" id="drift-3" style="left:200px; top:1480px;">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m17 2 4 4-4 4" /><path d="M3 11v-1a4 4 0 0 1 4-4h14" /><path d="m7 22-4-4 4-4" /><path d="M21 13v1a4 4 0 0 1-4 4H3" /></svg>
-        </div>
-        <div class="icon-drift" id="drift-4" style="left:780px; top:1520px;">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m17 2 4 4-4 4" /><path d="M3 11v-1a4 4 0 0 1 4-4h14" /><path d="m7 22-4-4 4-4" /><path d="M21 13v1a4 4 0 0 1-4 4H3" /></svg>
+      <!-- ================= EPISODE 1 (0.7–9.2s): weekly-routine card ================= -->
+      <div class="clip" id="ep1-wrap" data-start="0.7" data-duration="8.5" style="pointer-events:none">
+        <div class="week-shadow" id="week-shadow-2" style="opacity:0.18; transform: rotate(2.4deg) translate(14px,-10px);"></div>
+        <div class="week-shadow" id="week-shadow-1" style="opacity:0.32; transform: rotate(-1.6deg) translate(-10px,-6px);"></div>
+        <div class="hero-card week-shadow" id="week-card" style="display:flex; align-items:center; justify-content:center; gap:16px; padding:0 30px;">
+          <div class="day-cell" id="day-0">ПН<div class="day-badge" id="badge-mon" style="opacity:0; transform:scale(0)"></div></div>
+          <div class="day-cell" id="day-1">ВТ</div>
+          <div class="day-cell" id="day-2">СР<div class="day-badge" id="badge-wed" style="opacity:0; transform:scale(0)"></div></div>
+          <div class="day-cell" id="day-3">ЧТ</div>
+          <div class="day-cell" id="day-4">ПТ<div class="day-badge" id="badge-fri" style="opacity:0; transform:scale(0)"></div></div>
+          <div class="day-cell" id="day-5">СБ</div>
+          <div class="day-cell" id="day-6">ВС</div>
         </div>
       </div>
       <div class="clip text-band" id="text-thesis" data-start="0.7" data-duration="8.5" style="color: var(--ink)">
         <p>одна и та же <span class="punch">задача</span></p>
       </div>
 
-      <!-- ================= SCENE A: channel 1 — envelope (slot C1) ================= -->
-      <div class="clip slot-c-icon slot-c-1" id="icon-envelope" data-start="9.2" data-duration="5.5" style="background: rgba(154,154,150,0.12); color: var(--ink); opacity:0">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7" /><rect x="2" y="4" width="20" height="16" rx="2" />
-        </svg>
+      <!-- ================= EPISODE 2 (9.2–14.7s): 3 content cards ================= -->
+      <!-- envelope card starts alone at slot-b, translates to slot-a once telegram/vk join -->
+      <div class="clip row-card hero-card slot-b" id="card-envelope" data-start="9.2" data-duration="5.5">
+        <div class="corner-fold"></div>
+        <div class="card-header"></div>
+        <div class="header-rule"></div>
+        <div class="avatar-dot" style="left:20px; top:18px; width:36px; height:36px;"></div>
+        <div class="corner-badge" style="right:-16px; top:-16px;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7" /><rect x="2" y="4" width="20" height="16" rx="2" />
+          </svg>
+        </div>
+        <div class="bar-strong" style="left:24px; top:100px; width:200px;"></div>
+        <div class="bar-soft" style="left:24px; top:136px; width:150px;"></div>
+        <div class="tag-pill" style="left:24px; top:234px;"><span></span></div>
       </div>
       <div class="clip text-band" id="text-envelope" data-start="9.2" data-duration="5.25" style="color: var(--ink)">
         <p><span class="punch">рассылки</span></p>
       </div>
 
-      <!-- ================= SCENE A: channels 2-3 — Telegram / VK (slot C2/C3) ================= -->
-      <div class="clip slot-c-icon slot-c-2" id="icon-telegram" data-start="12.55" data-duration="2.15" style="background: rgba(154,154,150,0.12); color: var(--ink); opacity:0">
-        <svg role="img" viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" fill="currentColor"/></svg>
-      </div>
-      <div class="clip slot-c-icon slot-c-3" id="icon-vk" data-start="12.9" data-duration="1.8" style="background: rgba(154,154,150,0.12); color: var(--ink); opacity:0">
-        <svg role="img" viewBox="0 0 24 24"><path d="m9.489.004.729-.003h3.564l.73.003.914.01.433.007.418.011.403.014.388.016.374.021.36.025.345.03.333.033c1.74.196 2.933.616 3.833 1.516.9.9 1.32 2.092 1.516 3.833l.034.333.029.346.025.36.02.373.025.588.012.41.013.644.009.915.004.98-.001 3.313-.003.73-.01.914-.007.433-.011.418-.014.403-.016.388-.021.374-.025.36-.03.345-.033.333c-.196 1.74-.616 2.933-1.516 3.833-.9.9-2.092 1.32-3.833 1.516l-.333.034-.346.029-.36.025-.373.02-.588.025-.41.012-.644.013-.915.009-.98.004-3.313-.001-.73-.003-.914-.01-.433-.007-.418-.011-.403-.014-.388-.016-.374-.021-.36-.025-.345-.03-.333-.033c-1.74-.196-2.933-.616-3.833-1.516-.9-.9-1.32-2.092-1.516-3.833l-.034-.333-.029-.346-.025-.36-.02-.373-.025-.588-.012-.41-.013-.644-.009-.915-.004-.98.001-3.313.003-.73.01-.914.007-.433.011-.418.014-.403.016-.388.021-.374.025-.36.03-.345.033-.333c.196-1.74.616-2.933 1.516-3.833.9-.9 2.092-1.32 3.833-1.516l.333-.034.346-.029.36-.025.373-.02.588-.025.41-.012.644-.013.915-.009ZM6.79 7.3H4.05c.13 6.24 3.25 9.99 8.72 9.99h.31v-3.57c2.01.2 3.53 1.67 4.14 3.57h2.84c-.78-2.84-2.83-4.41-4.11-5.01 1.28-.74 3.08-2.54 3.51-4.98h-2.58c-.56 1.98-2.22 3.78-3.8 3.95V7.3H10.5v6.92c-1.6-.4-3.62-2.34-3.71-6.92Z" fill="currentColor"/></svg>
+      <div class="clip row-card bubble-dark slot-b" id="card-telegram" data-start="12.55" data-duration="2.15">
+        <div class="corner-badge" style="right:-16px; top:-16px; background:var(--paper); box-shadow:0 10px 22px rgba(26,26,26,.25);">
+          <svg viewBox="0 0 24 24" style="color:var(--ink)"><path fill="currentColor" d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+        </div>
+        <div class="bar-strong" style="left:24px; top:112px; width:180px;"></div>
+        <div class="bar-soft" style="left:24px; top:148px; width:120px;"></div>
+        <div class="tg-pill" style="left:24px; bottom:22px; padding:0 12px;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4 4L19 6" /></svg>
+        </div>
       </div>
 
-      <!-- ================= SCENE B/C: clock/timer (slot H, persists across dark flip) ================= -->
-      <div class="clip" id="icon-clock-wrap" data-start="14.7" data-duration="6.55" style="pointer-events:none">
-        <div class="slot-h" id="icon-clock" style="color: var(--ink)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="10" />
-            <path id="clock-hand" d="M12 6v6l4 2" />
-          </svg>
+      <div class="clip row-card hero-card slot-c" id="card-vk" data-start="12.9" data-duration="1.8">
+        <div class="avatar-dot" style="left:20px; top:20px; width:44px; height:44px;"></div>
+        <div class="bar-strong" style="left:76px; top:32px; width:130px; height:18px; border-radius:9px;"></div>
+        <div class="media-block" style="left:20px; top:84px; width:260px; height:130px;"></div>
+        <div class="corner-badge" style="right:-16px; top:-16px;">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="m9.489.004.729-.003h3.564l.73.003.914.01.433.007.418.011.403.014.388.016.374.021.36.025.345.03.333.033c1.74.196 2.933.616 3.833 1.516.9.9 1.32 2.092 1.516 3.833l.034.333.029.346.025.36.02.373.025.588.012.41.013.644.009.915.004.98-.001 3.313-.003.73-.01.914-.007.433-.011.418-.014.403-.016.388-.021.374-.025.36-.03.345-.033.333c-.196 1.74-.616 2.933-1.516 3.833-.9.9-2.092 1.32-3.833 1.516l-.333.034-.346.029-.36.025-.373.02-.588.025-.41.012-.644.013-.915.009-.98.004-3.313-.001-.73-.003-.914-.01-.433-.007-.418-.011-.403-.014-.388-.016-.374-.021-.36-.025-.345-.03-.333-.033c-1.74-.196-2.933-.616-3.833-1.516-.9-.9-1.32-2.092-1.516-3.833l-.034-.333-.029-.346-.025-.36-.02-.373-.025-.588-.012-.41-.013-.644-.009-.915-.004-.98.001-3.313.003-.73.01-.914.007-.433.011-.418.014-.403.016-.388.021-.374.025-.36.03-.345.033-.333c.196-1.74.616-2.933 1.516-3.833.9-.9 2.092-1.32 3.833-1.516l.333-.034.346-.029.36-.025.373-.02.588-.025.41-.012.644-.013.915-.009ZM6.79 7.3H4.05c.13 6.24 3.25 9.99 8.72 9.99h.31v-3.57c2.01.2 3.53 1.67 4.14 3.57h2.84c-.78-2.84-2.83-4.41-4.11-5.01 1.28-.74 3.08-2.54 3.51-4.98h-2.58c-.56 1.98-2.22 3.78-3.8 3.95V7.3H10.5v6.92c-1.6-.4-3.62-2.34-3.71-6.92Z"/></svg>
+        </div>
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="var(--ink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="position:absolute; left:22px; bottom:22px;"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78Z" /></svg>
+      </div>
+
+      <!-- ================= EPISODE 3 (14.7–25.4s): day-bar timeline ================= -->
+      <div class="clip" id="ep3-wrap" data-start="14.7" data-duration="6.55" style="pointer-events:none">
+        <div class="day-bar-track" id="day-bar-track">
+          <div class="day-bar-fill" id="day-bar-fill"></div>
+          <div class="day-bar-tick" style="left:224px;"></div>
+          <div class="day-bar-tick" style="left:449px;"></div>
+          <div class="day-bar-tick" style="left:674px;"></div>
         </div>
       </div>
       <div class="clip text-band" id="text-day" data-start="14.7" data-duration="1.8" style="color: var(--ink)">
@@ -189,60 +282,83 @@
           <path d="M4 2l14 6-5.5 2L10 16z" fill="var(--paper)" stroke="var(--ink)" stroke-width="1" />
         </svg>
       </div>
-      <div class="badge clip" id="click-ripple" data-start="26.55" data-duration="1.2" style="inset:auto; left:508px; top:1198px; right:auto; bottom:auto; width:55px; height:55px; opacity:0; background:transparent; border:3px solid var(--paper);"></div>
+      <div class="check-badge clip" id="click-ripple" data-start="26.55" data-duration="1.2" style="inset:auto; left:508px; top:1198px; right:auto; bottom:auto; background:transparent; box-shadow:none; border:3px solid var(--paper);"></div>
 
-      <!-- ================= SCENE E: mechanism — voice (slot H -> docks to slot D) ================= -->
-      <div class="clip" id="icon-voice-wrap" data-start="27.75" data-duration="7.18" style="pointer-events:none">
-        <div class="slot-h" id="icon-voice" style="color: var(--ink); left:430px; top:1120px; width:220px; height:220px;">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M2 10v3" /><path d="M6 6v11" /><path d="M10 3v18" /><path d="M14 8v7" /><path d="M18 5v13" /><path d="M22 10v3" />
-          </svg>
+      <!-- ================= EPISODE 4 (27.75–33.98s): voice bubble → processing → 3 content cards ================= -->
+      <div class="clip voice-bubble" id="voice-bubble" data-start="27.75" data-duration="7.18">
+        <div class="voice-play"><svg viewBox="0 0 24 24" width="24" height="24"><polygon points="7,4 20,12 7,20" fill="var(--ink)" /></svg></div>
+        <div class="voice-wave" id="voice-wave">
+          <i style="height:22%"></i><i style="height:42%"></i><i style="height:66%"></i><i style="height:36%"></i>
+          <i style="height:80%"></i><i style="height:50%"></i><i style="height:64%"></i><i style="height:30%"></i>
+          <i style="height:54%"></i><i style="height:72%"></i><i style="height:40%"></i><i style="height:26%"></i>
         </div>
+        <div class="voice-duration">0:34</div>
       </div>
       <div class="clip text-band" id="text-voice" data-start="27.75" data-duration="2.55" style="color: var(--ink)">
         <p><span class="punch">голосовое</span></p>
       </div>
 
-      <div class="clip slot-d-icon slot-d-system" id="icon-system" data-start="30.3" data-duration="4.63" style="background: rgba(26,26,26,0.06); color: var(--ink)">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path id="gear-path" d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915" />
-          <circle cx="12" cy="12" r="3" />
+      <div class="processing-card clip" id="processing-card" data-start="30.3" data-duration="4.63">
+        <div class="proc-panel"></div>
+        <svg viewBox="0 0 620 70" width="100%" height="100%">
+          <line class="proc-line" x1="60" y1="35" x2="170" y2="22" /><line class="proc-line" x1="60" y1="35" x2="170" y2="48" />
+          <line class="proc-line" x1="170" y1="22" x2="300" y2="35" /><line class="proc-line" x1="170" y1="48" x2="300" y2="35" />
+          <line class="proc-line" x1="300" y1="35" x2="430" y2="22" /><line class="proc-line" x1="300" y1="35" x2="430" y2="48" />
+          <circle class="proc-node" id="pn-1" cx="60" cy="35" r="8" />
+          <circle class="proc-node" id="pn-2" cx="170" cy="22" r="6" />
+          <circle class="proc-node" id="pn-3" cx="170" cy="48" r="6" />
+          <circle class="proc-node" id="pn-4" cx="300" cy="35" r="8" />
+          <circle class="proc-node" id="pn-5" cx="430" cy="22" r="6" />
+          <circle class="proc-node" id="pn-6" cx="430" cy="48" r="6" />
         </svg>
+        <div class="corner-badge" style="right:-16px; top:-16px;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915" />
+            <circle cx="12" cy="12" r="3" />
+          </svg>
+        </div>
       </div>
       <div class="clip text-band" id="text-system" data-start="30.3" data-duration="1.6" style="color: var(--ink)">
         <p><span class="punch">систему</span></p>
       </div>
 
-      <!-- connector 1: voice -> system -->
+      <!-- connector 1: voice chip -> processing card -->
       <svg class="clip" id="connector-1" data-start="30.3" data-duration="4.63" width="1080" height="1920" style="position:absolute; inset:0; pointer-events:none;">
-        <path id="connector-1-path" d="M230 1145 L330 1145" stroke="var(--structural)" stroke-width="4" fill="none" stroke-linecap="round" />
+        <path id="connector-1-path" d="M370 1115 L390 1115" stroke="var(--structural)" stroke-width="4" fill="none" stroke-linecap="round" />
       </svg>
 
-      <!-- connector 2: system -> channel row -->
+      <!-- connector 2: processing card -> content-card row -->
       <svg class="clip" id="connector-2" data-start="31.9" data-duration="3.03" width="1080" height="1920" style="position:absolute; inset:0; pointer-events:none;">
-        <path id="connector-2-path" d="M395 1210 L445 1300" stroke="var(--structural)" stroke-width="4" fill="none" stroke-linecap="round" />
+        <path id="connector-2-path" d="M700 1150 L700 1170" stroke="var(--structural)" stroke-width="4" fill="none" stroke-linecap="round" />
       </svg>
 
-      <!-- ================= SCENE E: payoff — 3 channels + checkmarks (slot C, 2nd appearance) ================= -->
-      <div class="clip slot-c-icon slot-c-1" id="icon-envelope-2" data-start="32.0" data-duration="2.93" style="background: rgba(26,26,26,0.06); color: var(--ink); opacity:0">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7" /><rect x="2" y="4" width="20" height="16" rx="2" />
-        </svg>
+      <!-- payoff row: same 3 card archetypes, filled + checked -->
+      <div class="clip row-card hero-card slot-a" id="card-envelope-2" data-start="32.0" data-duration="2.93">
+        <div class="corner-fold"></div>
+        <div class="card-header"></div>
+        <div class="header-rule"></div>
+        <div class="avatar-dot" style="left:20px; top:18px; width:36px; height:36px;"></div>
+        <div class="bar-strong" style="left:24px; top:100px; width:200px;"></div>
+        <div class="bar-soft" style="left:24px; top:136px; width:150px;"></div>
+        <div class="tag-pill" style="left:24px; top:234px;"><span></span></div>
       </div>
-      <div class="clip slot-c-icon slot-c-2" id="icon-telegram-2" data-start="32.15" data-duration="2.78" style="background: rgba(26,26,26,0.06); color: var(--ink); opacity:0">
-        <svg role="img" viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" fill="currentColor"/></svg>
+      <div class="clip row-card bubble-dark slot-b" id="card-telegram-2" data-start="32.15" data-duration="2.78">
+        <div class="bar-strong" style="left:24px; top:112px; width:180px;"></div>
+        <div class="bar-soft" style="left:24px; top:148px; width:120px;"></div>
       </div>
-      <div class="clip slot-c-icon slot-c-3" id="icon-vk-2" data-start="32.3" data-duration="2.63" style="background: rgba(26,26,26,0.06); color: var(--ink); opacity:0">
-        <svg role="img" viewBox="0 0 24 24"><path d="m9.489.004.729-.003h3.564l.73.003.914.01.433.007.418.011.403.014.388.016.374.021.36.025.345.03.333.033c1.74.196 2.933.616 3.833 1.516.9.9 1.32 2.092 1.516 3.833l.034.333.029.346.025.36.02.373.025.588.012.41.013.644.009.915.004.98-.001 3.313-.003.73-.01.914-.007.433-.011.418-.014.403-.016.388-.021.374-.025.36-.03.345-.033.333c-.196 1.74-.616 2.933-1.516 3.833-.9.9-2.092 1.32-3.833 1.516l-.333.034-.346.029-.36.025-.373.02-.588.025-.41.012-.644.013-.915.009-.98.004-3.313-.001-.73-.003-.914-.01-.433-.007-.418-.011-.403-.014-.388-.016-.374-.021-.36-.025-.345-.03-.333-.033c-1.74-.196-2.933-.616-3.833-1.516-.9-.9-1.32-2.092-1.516-3.833l-.034-.333-.029-.346-.025-.36-.02-.373-.025-.588-.012-.41-.013-.644-.009-.915-.004-.98.001-3.313.003-.73.01-.914.007-.433.011-.418.014-.403.016-.388.021-.374.025-.36.03-.345.033-.333c.196-1.74.616-2.933 1.516-3.833.9-.9 2.092-1.32 3.833-1.516l.333-.034.346-.029.36-.025.373-.02.588-.025.41-.012.644-.013.915-.009ZM6.79 7.3H4.05c.13 6.24 3.25 9.99 8.72 9.99h.31v-3.57c2.01.2 3.53 1.67 4.14 3.57h2.84c-.78-2.84-2.83-4.41-4.11-5.01 1.28-.74 3.08-2.54 3.51-4.98h-2.58c-.56 1.98-2.22 3.78-3.8 3.95V7.3H10.5v6.92c-1.6-.4-3.62-2.34-3.71-6.92Z" fill="currentColor"/></svg>
+      <div class="clip row-card hero-card slot-c" id="card-vk-2" data-start="32.3" data-duration="2.63">
+        <div class="avatar-dot" style="left:20px; top:20px; width:44px; height:44px;"></div>
+        <div class="bar-strong" style="left:76px; top:32px; width:130px; height:18px; border-radius:9px;"></div>
+        <div class="media-block" style="left:20px; top:84px; width:260px; height:130px;"></div>
       </div>
 
-      <div class="badge clip" id="check-1" data-start="32.5" data-duration="2.43" style="inset:auto; left:255px; top:1290px; right:auto; bottom:auto; width:55px; height:55px; opacity:0;">
+      <div class="check-badge clip" id="check-1" data-start="32.5" data-duration="2.43" style="inset:auto; left:345px; top:1145px; right:auto; bottom:auto;">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4 4L19 6" /></svg>
       </div>
-      <div class="badge clip" id="check-2" data-start="32.6" data-duration="2.33" style="inset:auto; left:475px; top:1290px; right:auto; bottom:auto; width:55px; height:55px; opacity:0;">
+      <div class="check-badge clip" id="check-2" data-start="32.6" data-duration="2.33" style="inset:auto; left:665px; top:1145px; right:auto; bottom:auto;">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4 4L19 6" /></svg>
       </div>
-      <div class="badge clip" id="check-3" data-start="32.7" data-duration="2.23" style="inset:auto; left:695px; top:1290px; right:auto; bottom:auto; width:55px; height:55px; opacity:0;">
+      <div class="check-badge clip" id="check-3" data-start="32.7" data-duration="2.23" style="inset:auto; left:985px; top:1145px; right:auto; bottom:auto;">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4 4L19 6" /></svg>
       </div>
 
@@ -254,56 +370,51 @@
     <script>
       const tl = gsap.timeline({ paused: true });
 
-      /* ---------- SCENE A: thesis ---------- */
-      tl.fromTo("#icon-cycle", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.35, ease: "back.out(1.6)" }, 0.7);
+      /* ---------- EPISODE 1: weekly-routine card ---------- */
+      tl.fromTo("#week-card", { scale: 0.85, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(1.5)" }, 0.7);
+      tl.fromTo(["#week-shadow-1", "#week-shadow-2"], { opacity: 0 }, { opacity: (i) => (i === 0 ? 0.32 : 0.18), duration: 0.4, ease: "power2.out" }, 0.78);
       tl.fromTo("#text-thesis p", { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.35, ease: "power2.out" }, 0.85);
-      // slow single-turn drift on the hero icon (thematic, finite)
-      tl.fromTo("#icon-cycle svg", { rotation: 0 }, { rotation: 360, duration: 6.5, ease: "none", transformOrigin: "50% 50%" }, 1.2);
-      // background icon-pattern drift: gentle finite diagonal wander
-      ["#drift-1", "#drift-2", "#drift-3", "#drift-4"].forEach((sel, i) => {
-        tl.fromTo(sel, { x: 0, y: 0 }, { x: 18, y: 14, duration: 4.2, ease: "sine.inOut", repeat: 1, yoyo: true }, 0.7 + i * 0.15);
-      });
-      // exit: cycle icon + thesis text fade+scale-down before channel row enters
-      tl.to(["#icon-cycle", "#text-thesis p"], { opacity: 0, scale: 0.94, duration: 0.2, ease: "power2.in" }, 8.9);
-      tl.set(["#icon-cycle", "#text-thesis p"], { opacity: 0 }, 9.1);
+      tl.fromTo("#badge-mon", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.25, ease: "back.out(2)" }, 2.0);
+      tl.fromTo("#badge-wed", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.25, ease: "back.out(2)" }, 2.35);
+      tl.fromTo("#badge-fri", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.25, ease: "back.out(2)" }, 2.7);
+      tl.to(["#week-card", "#week-shadow-1", "#week-shadow-2", "#text-thesis p"], { opacity: 0, scale: 0.94, duration: 0.2, ease: "power2.in" }, 8.9);
+      tl.set(["#week-card", "#week-shadow-1", "#week-shadow-2", "#text-thesis p"], { opacity: 0 }, 9.1);
 
-      /* ---------- SCENE A: 3 channels ---------- */
-      tl.fromTo("#icon-envelope", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.35, ease: "back.out(1.6)" }, 9.2);
+      /* ---------- EPISODE 2: 3 content cards ---------- */
+      tl.fromTo("#card-envelope", { scale: 0.85, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(1.5)" }, 9.2);
       tl.fromTo("#text-envelope p", { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power2.out" }, 9.35);
-      tl.to(["#icon-envelope", "#text-envelope p"], { opacity: 0, scale: 0.94, duration: 0.2, ease: "power2.in" }, 14.45);
-      tl.set(["#icon-envelope", "#text-envelope p"], { opacity: 0 }, 14.65);
+      // envelope translates left to slot-a once telegram/vk join
+      tl.to("#card-envelope", { x: -320, duration: 0.35, ease: "power2.inOut" }, 12.55);
+      tl.to(["#card-envelope", "#text-envelope p"], { opacity: 0, scale: 0.94, duration: 0.2, ease: "power2.in" }, 14.45);
+      tl.set(["#card-envelope", "#text-envelope p"], { opacity: 0 }, 14.65);
 
-      tl.fromTo("#icon-telegram", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(1.6)" }, 12.55);
-      tl.to("#icon-telegram", { opacity: 0, scale: 0.94, duration: 0.2, ease: "power2.in" }, 14.45);
-      tl.set("#icon-telegram", { opacity: 0 }, 14.65);
+      tl.fromTo("#card-telegram", { scale: 0.85, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.35, ease: "back.out(1.5)" }, 12.55);
+      tl.to("#card-telegram", { opacity: 0, scale: 0.94, duration: 0.2, ease: "power2.in" }, 14.45);
+      tl.set("#card-telegram", { opacity: 0 }, 14.65);
 
-      tl.fromTo("#icon-vk", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(1.6)" }, 12.9);
-      tl.to("#icon-vk", { opacity: 0, scale: 0.94, duration: 0.2, ease: "power2.in" }, 14.45);
-      tl.set("#icon-vk", { opacity: 0 }, 14.65);
+      tl.fromTo("#card-vk", { scale: 0.85, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.35, ease: "back.out(1.5)" }, 12.9);
+      tl.to("#card-vk", { opacity: 0, scale: 0.94, duration: 0.2, ease: "power2.in" }, 14.45);
+      tl.set("#card-vk", { opacity: 0 }, 14.65);
 
-      /* ---------- SCENE B/C: clock ---------- */
-      tl.fromTo("#icon-clock", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.35, ease: "back.out(1.6)" }, 14.7);
+      /* ---------- EPISODE 3: day-bar ---------- */
+      tl.fromTo("#day-bar-track", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, 14.7);
+      tl.to("#day-bar-fill", { scaleX: 1, duration: 1.3, ease: "power2.out" }, 14.7);
       tl.fromTo("#text-day p", { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power2.out" }, 14.85);
       tl.to("#text-day p", { opacity: 0, y: -12, duration: 0.2, ease: "power2.in" }, 16.3);
       tl.set("#text-day p", { opacity: 0 }, 16.5);
 
-      // clock hand sweeps 3 full turns across the "day" — deterministic proxy + SVG-native rotate for exact center
-      const handProxy = { deg: 0 };
-      tl.to(handProxy, {
-        deg: 1080, duration: 6.15, ease: "none",
-        onUpdate: () => document.getElementById("clock-hand").setAttribute("transform", `rotate(${handProxy.deg} 12 12)`),
-      }, 14.7);
-
-      // hard-cut scene flip to dark at 16.6 (bg swap is automatic via stage clip windows; recolor persistent icon + text)
-      tl.set("#icon-clock", { color: "var(--paper)" }, 16.6);
+      // hard-cut scene flip to dark at 16.6 — recolor persistent bar + track
+      tl.set(["#day-bar-fill"], { backgroundColor: "var(--paper)" }, 16.6);
+      tl.set("#day-bar-track", { backgroundColor: "rgba(255,255,255,0.12)" }, 16.6);
+      tl.to("#day-bar-fill", { opacity: 0.7, duration: 0.5, ease: "sine.inOut", repeat: 3, yoyo: true }, 16.8);
 
       tl.fromTo("#text-longway p", { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power2.out" }, 16.7);
       tl.to("#text-longway p", { opacity: 0, y: -12, duration: 0.2, ease: "power2.in" }, 20.5);
       tl.set("#text-longway p", { opacity: 0 }, 20.7);
 
-      /* ---------- SCENE C: поворот ---------- */
-      // clock shrinks + fades — direct visualization of "time no longer spent"
-      tl.to("#icon-clock", { scale: 0.25, opacity: 0, duration: 0.4, ease: "power2.inOut" }, 20.85);
+      /* ---------- SCENE C: поворот — the bar snaps down ---------- */
+      tl.to("#day-bar-fill", { scaleX: 0.08, duration: 0.4, ease: "power3.inOut" }, 20.85);
+      tl.to("#day-bar-track", { opacity: 0, duration: 0.3, ease: "power2.in" }, 21.35);
       tl.fromTo("#text-twist p", { y: 20, opacity: 0, scale: 0.96 }, { y: 0, opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.4)" }, 20.95);
       tl.to("#text-twist p", { opacity: 0, y: -12, duration: 0.25, ease: "power2.in" }, 25.05);
       tl.set("#text-twist p", { opacity: 0 }, 25.3);
@@ -316,42 +427,48 @@
       tl.to("#cursor", { opacity: 0, duration: 0.2, ease: "power2.in" }, 27.35);
       tl.set("#cursor", { opacity: 0 }, 27.55);
 
-      /* ---------- SCENE E: mechanism ---------- */
-      tl.fromTo("#icon-voice", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.35, ease: "back.out(1.6)" }, 27.75);
+      /* ---------- EPISODE 4: voice bubble -> processing -> payoff cards ---------- */
+      // natural CSS = docked chip (70,1080,300x70). Big display = scaled-up transform.
+      const BIG_SX = 800 / 300, BIG_SY = 240 / 70, BIG_DX = 70, BIG_DY = 145;
+      tl.fromTo(
+        "#voice-bubble",
+        { scaleX: 0, scaleY: 0, x: BIG_DX, y: BIG_DY, opacity: 0 },
+        { scaleX: BIG_SX, scaleY: BIG_SY, x: BIG_DX, y: BIG_DY, opacity: 1, duration: 0.4, ease: "back.out(1.4)" },
+        27.75
+      );
       tl.fromTo("#text-voice p", { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power2.out" }, 27.9);
-      // waveform bars pulse — finite, staggered
-      gsap.utils.toArray("#icon-voice svg path").forEach((bar, i) => {
-        tl.fromTo(bar, { scaleY: 0.5 }, { scaleY: 1, duration: 0.35, ease: "sine.inOut", repeat: 5, yoyo: true, transformOrigin: "50% 50%" }, 28.1 + i * 0.05);
+      gsap.utils.toArray("#voice-wave i").forEach((bar, i) => {
+        tl.to(bar, { scaleY: 1.3, duration: 0.3, ease: "sine.inOut", repeat: 5, yoyo: true, transformOrigin: "50% 50%" }, 28.1 + i * 0.04);
       });
       tl.to("#text-voice p", { opacity: 0, y: -12, duration: 0.2, ease: "power2.in" }, 30.1);
       tl.set("#text-voice p", { opacity: 0 }, 30.3);
 
-      // dock: voice shrinks + travels from slot H (center 540,1230) to slot D (center 165,1145) —
-      // transform-only (x/y/scale), never left/top/width/height, per determinism-rules non-transform-motion.
-      tl.to("#icon-voice", { x: -375, y: -85, scale: 130 / 220, duration: 0.2, ease: "power2.inOut" }, 30.3);
+      // dock: voice bubble returns to its natural (chip) transform state
+      tl.to("#voice-bubble", { scaleX: 1, scaleY: 1, x: 0, y: 0, duration: 0.25, ease: "power2.inOut" }, 30.3);
 
-      tl.fromTo("#icon-system", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(1.6)" }, 30.3);
+      tl.fromTo("#processing-card", { scale: 0.85, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(1.5)" }, 30.3);
       tl.fromTo("#text-system p", { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power2.out" }, 30.45);
       tl.to("#text-system p", { opacity: 0, y: -12, duration: 0.2, ease: "power2.in" }, 31.7);
       tl.set("#text-system p", { opacity: 0 }, 31.9);
-      // gear turns slowly while it "processes"
-      tl.fromTo("#icon-system svg", { rotation: 0 }, { rotation: 90, duration: 4.5, ease: "none", transformOrigin: "50% 50%" }, 30.3);
+      ["#pn-1", "#pn-2", "#pn-3", "#pn-4", "#pn-5", "#pn-6"].forEach((sel, i) => {
+        tl.fromTo(sel, { scale: 0.6 }, { scale: 1.15, duration: 0.35, ease: "sine.inOut", repeat: 5, yoyo: true }, 30.45 + i * 0.08);
+      });
 
       // connector 1 draws in once dock completes
       const c1 = document.getElementById("connector-1-path");
-      const c1len = c1 ? c1.getTotalLength() : 100;
+      const c1len = c1 ? c1.getTotalLength() : 20;
       gsap.set("#connector-1-path", { strokeDasharray: c1len, strokeDashoffset: c1len });
-      tl.to("#connector-1-path", { strokeDashoffset: 0, duration: 0.3, ease: "power2.inOut" }, 30.5);
+      tl.to("#connector-1-path", { strokeDashoffset: 0, duration: 0.2, ease: "power2.inOut" }, 30.55);
 
-      /* ---------- SCENE E: payoff ---------- */
+      /* ---------- EPISODE 4 payoff ---------- */
       const c2 = document.getElementById("connector-2-path");
-      const c2len = c2 ? c2.getTotalLength() : 100;
+      const c2len = c2 ? c2.getTotalLength() : 20;
       gsap.set("#connector-2-path", { strokeDasharray: c2len, strokeDashoffset: c2len });
-      tl.to("#connector-2-path", { strokeDashoffset: 0, duration: 0.3, ease: "power2.inOut" }, 31.9);
+      tl.to("#connector-2-path", { strokeDashoffset: 0, duration: 0.2, ease: "power2.inOut" }, 31.9);
 
-      tl.fromTo("#icon-envelope-2", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(1.6)" }, 32.0);
-      tl.fromTo("#icon-telegram-2", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(1.6)" }, 32.15);
-      tl.fromTo("#icon-vk-2", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(1.6)" }, 32.3);
+      tl.fromTo("#card-envelope-2", { scale: 0.85, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(1.5)" }, 32.0);
+      tl.fromTo("#card-telegram-2", { scale: 0.85, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(1.5)" }, 32.15);
+      tl.fromTo("#card-vk-2", { scale: 0.85, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(1.5)" }, 32.3);
 
       tl.fromTo("#check-1", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.2, ease: "back.out(2)" }, 32.5);
       tl.fromTo("#check-2", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.2, ease: "back.out(2)" }, 32.6);
