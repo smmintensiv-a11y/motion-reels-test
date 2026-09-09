@@ -36,7 +36,7 @@
       .stage-light .grid-dots { color: var(--structural); opacity: 0.08; }
       .stage-dark .grid-dots { color: var(--structural); opacity: 0.1; }
 
-      /* ---- text band (y1520-1740, shared by every text accent) — unchanged ---- */
+      /* ---- text band (y1520-1740, default position for the climax beats) ---- */
       .text-band {
         position: absolute; left: 60px; top: 1520px; width: 960px; height: 220px;
         display: flex; align-items: center; justify-content: center;
@@ -48,6 +48,9 @@
       .text-band .punch { font-weight: 900; letter-spacing: -0.02em; color: var(--accent); }
       .text-band.max-emphasis p { font-size: 100px; }
       .text-band.max-emphasis .punch { text-shadow: 0 0 34px rgba(229, 35, 28, 0.55); }
+      /* text-as-composition: left-anchored variant for non-climax beats, breaks the always-centered rhythm */
+      .text-band.text-left { justify-content: flex-start; text-align: left; }
+      .text-band.text-tight-right { left: 700px; top: 1180px; width: 320px; height: 260px; justify-content: flex-start; text-align: left; }
 
       /* ---- cursor (hook scene) — unchanged ---- */
       .cursor-wrap { position: absolute; width: 64px; height: 64px; }
@@ -111,16 +114,16 @@
       }
       .tg-pill svg { width: 16px; height: 16px; }
 
-      /* ---- week card (episode 1) ---- */
+      /* ---- week card (episode 1) — bleeds off the left edge, text lives beside it ---- */
       .week-shadow {
-        position: absolute; left: 90px; top: 1080px; width: 900px; height: 240px;
+        position: absolute; left: -70px; top: 1130px; width: 740px; height: 220px;
         background: var(--paper); border-radius: 26px;
       }
       .day-cell {
-        position: relative; width: 84px; height: 84px; border-radius: 20px;
+        position: relative; width: 76px; height: 76px; border-radius: 18px;
         background: rgba(154, 154, 150, 0.14);
         display: flex; align-items: center; justify-content: center;
-        font-weight: 700; font-size: 24px; color: var(--ink);
+        font-weight: 700; font-size: 22px; color: var(--ink);
       }
       .day-badge {
         position: absolute; top: -8px; right: -8px; width: 22px; height: 22px;
@@ -128,10 +131,10 @@
         box-shadow: 0 4px 10px rgba(229, 35, 28, 0.4);
       }
 
-      /* ---- day-bar (episode 3) ---- */
+      /* ---- day-bar (episode 3) — bleeds flush to the right edge ---- */
       .day-bar-track {
-        position: absolute; left: 90px; top: 1180px; width: 900px; height: 90px;
-        border-radius: 45px; background: rgba(154, 154, 150, 0.2); overflow: hidden;
+        position: absolute; left: 40px; top: 1180px; width: 1040px; height: 90px;
+        border-radius: 45px 12px 12px 45px; background: rgba(154, 154, 150, 0.2); overflow: hidden;
       }
       .day-bar-fill {
         position: absolute; left: 0; top: 0; height: 100%; width: 100%;
@@ -161,9 +164,9 @@
       }
 
       .processing-card {
-        position: absolute; left: 390px; top: 1080px; width: 620px; height: 70px;
-        background: var(--paper); border-radius: 26px;
-        box-shadow: 0 22px 44px rgba(26, 26, 26, 0.16), 0 5px 12px rgba(26, 26, 26, 0.08);
+        position: absolute; left: 420px; top: 1050px; width: 640px; height: 150px;
+        background: var(--paper); border-radius: 30px;
+        box-shadow: 0 30px 56px rgba(26, 26, 26, 0.2), 0 6px 14px rgba(26, 26, 26, 0.09);
         opacity: 0;
       }
       .proc-node { fill: var(--ink); transform-box: fill-box; transform-origin: center; }
@@ -174,6 +177,11 @@
       .slot-a { left: 70px; }
       .slot-b { left: 390px; }
       .slot-c { left: 710px; }
+      .row-glow {
+        position: absolute; left: 40px; top: 1130px; width: 1000px; height: 360px;
+        background: radial-gradient(ellipse at 50% 45%, rgba(229, 35, 28, 0.16), transparent 68%);
+        opacity: 0; pointer-events: none;
+      }
     </style>
   </head>
   <body>
@@ -196,11 +204,12 @@
         <div class="grid-dots"></div>
       </div>
 
-      <!-- ================= EPISODE 1 (0.7–9.2s): weekly-routine card ================= -->
+      <!-- ================= EPISODE 1 (0.7–9.2s): weekly-routine card — bleeds left, stacked, repeat-wobble ================= -->
       <div class="clip" id="ep1-wrap" data-start="0.7" data-duration="8.5" style="pointer-events:none">
-        <div class="week-shadow" id="week-shadow-2" style="opacity:0.18; transform: rotate(2.4deg) translate(14px,-10px);"></div>
-        <div class="week-shadow" id="week-shadow-1" style="opacity:0.32; transform: rotate(-1.6deg) translate(-10px,-6px);"></div>
-        <div class="hero-card week-shadow" id="week-card" style="display:flex; align-items:center; justify-content:center; gap:16px; padding:0 30px;">
+        <div class="week-shadow" id="week-shadow-3" data-layout-allow-overflow style="opacity:0.12; transform: rotate(4deg) translate(24px,-16px);"></div>
+        <div class="week-shadow" id="week-shadow-2" data-layout-allow-overflow style="opacity:0.2; transform: rotate(2.6deg) translate(14px,-10px);"></div>
+        <div class="week-shadow" id="week-shadow-1" data-layout-allow-overflow style="opacity:0.34; transform: rotate(-1.8deg) translate(-10px,-6px);"></div>
+        <div class="hero-card week-shadow" id="week-card" data-layout-allow-overflow style="display:flex; align-items:center; justify-content:center; gap:11px; padding:0 22px;">
           <div class="day-cell" id="day-0">ПН<div class="day-badge" id="badge-mon" style="opacity:0; transform:scale(0)"></div></div>
           <div class="day-cell" id="day-1">ВТ</div>
           <div class="day-cell" id="day-2">СР<div class="day-badge" id="badge-wed" style="opacity:0; transform:scale(0)"></div></div>
@@ -210,7 +219,7 @@
           <div class="day-cell" id="day-6">ВС</div>
         </div>
       </div>
-      <div class="clip text-band" id="text-thesis" data-start="0.7" data-duration="8.5" style="color: var(--ink)">
+      <div class="clip text-band text-tight-right" id="text-thesis" data-start="0.7" data-duration="8.5" style="color: var(--ink)">
         <p>одна и та же <span class="punch">задача</span></p>
       </div>
 
@@ -255,19 +264,19 @@
         <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="var(--ink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="position:absolute; left:22px; bottom:22px;"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78Z" /></svg>
       </div>
 
-      <!-- ================= EPISODE 3 (14.7–25.4s): day-bar timeline ================= -->
+      <!-- ================= EPISODE 3 (14.7–25.4s): day-bar timeline — bleeds to the right edge ================= -->
       <div class="clip" id="ep3-wrap" data-start="14.7" data-duration="6.55" style="pointer-events:none">
         <div class="day-bar-track" id="day-bar-track">
           <div class="day-bar-fill" id="day-bar-fill"></div>
-          <div class="day-bar-tick" style="left:224px;"></div>
-          <div class="day-bar-tick" style="left:449px;"></div>
-          <div class="day-bar-tick" style="left:674px;"></div>
+          <div class="day-bar-tick" style="left:260px;"></div>
+          <div class="day-bar-tick" style="left:520px;"></div>
+          <div class="day-bar-tick" style="left:780px;"></div>
         </div>
       </div>
-      <div class="clip text-band" id="text-day" data-start="14.7" data-duration="1.8" style="color: var(--ink)">
+      <div class="clip text-band text-left" id="text-day" data-start="14.7" data-duration="1.8" style="color: var(--ink); left:80px; top:1320px; width:500px;">
         <p><span class="punch">целый день</span></p>
       </div>
-      <div class="clip text-band" id="text-longway" data-start="16.7" data-duration="4.0" style="color: var(--paper)">
+      <div class="clip text-band text-left" id="text-longway" data-start="16.7" data-duration="4.0" style="color: var(--paper); left:80px; top:1320px; width:500px;">
         <p><span class="punch">реально долго</span></p>
       </div>
 
@@ -300,16 +309,16 @@
 
       <div class="processing-card clip" id="processing-card" data-start="30.3" data-duration="4.63">
         <div class="proc-panel"></div>
-        <svg viewBox="0 0 620 70" width="100%" height="100%">
-          <line class="proc-line" x1="60" y1="35" x2="170" y2="22" /><line class="proc-line" x1="60" y1="35" x2="170" y2="48" />
-          <line class="proc-line" x1="170" y1="22" x2="300" y2="35" /><line class="proc-line" x1="170" y1="48" x2="300" y2="35" />
-          <line class="proc-line" x1="300" y1="35" x2="430" y2="22" /><line class="proc-line" x1="300" y1="35" x2="430" y2="48" />
-          <circle class="proc-node" id="pn-1" cx="60" cy="35" r="8" />
-          <circle class="proc-node" id="pn-2" cx="170" cy="22" r="6" />
-          <circle class="proc-node" id="pn-3" cx="170" cy="48" r="6" />
-          <circle class="proc-node" id="pn-4" cx="300" cy="35" r="8" />
-          <circle class="proc-node" id="pn-5" cx="430" cy="22" r="6" />
-          <circle class="proc-node" id="pn-6" cx="430" cy="48" r="6" />
+        <svg viewBox="0 0 640 150" width="100%" height="100%">
+          <line class="proc-line" x1="70" y1="75" x2="220" y2="40" /><line class="proc-line" x1="70" y1="75" x2="220" y2="110" />
+          <line class="proc-line" x1="220" y1="40" x2="400" y2="75" /><line class="proc-line" x1="220" y1="110" x2="400" y2="75" />
+          <line class="proc-line" x1="400" y1="75" x2="530" y2="40" /><line class="proc-line" x1="400" y1="75" x2="530" y2="110" />
+          <circle class="proc-node" id="pn-1" cx="70" cy="75" r="10" />
+          <circle class="proc-node" id="pn-2" cx="220" cy="40" r="7" />
+          <circle class="proc-node" id="pn-3" cx="220" cy="110" r="7" />
+          <circle class="proc-node" id="pn-4" cx="400" cy="75" r="10" />
+          <circle class="proc-node" id="pn-5" cx="530" cy="40" r="7" data-layout-allow-overflow="true" />
+          <circle class="proc-node" id="pn-6" cx="530" cy="110" r="7" data-layout-allow-overflow="true" />
         </svg>
         <div class="corner-badge" style="right:-16px; top:-16px;">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -318,21 +327,22 @@
           </svg>
         </div>
       </div>
-      <div class="clip text-band" id="text-system" data-start="30.3" data-duration="1.6" style="color: var(--ink)">
+      <div class="clip text-band text-left" id="text-system" data-start="30.3" data-duration="1.6" style="color: var(--ink); left:80px; top:1250px; width:300px;">
         <p><span class="punch">систему</span></p>
       </div>
 
       <!-- connector 1: voice chip -> processing card -->
       <svg class="clip" id="connector-1" data-start="30.3" data-duration="4.63" width="1080" height="1920" style="position:absolute; inset:0; pointer-events:none;">
-        <path id="connector-1-path" d="M370 1115 L390 1115" stroke="var(--structural)" stroke-width="4" fill="none" stroke-linecap="round" />
+        <path id="connector-1-path" d="M370 1115 L420 1122" stroke="var(--structural)" stroke-width="5" fill="none" stroke-linecap="round" />
       </svg>
 
       <!-- connector 2: processing card -> content-card row -->
       <svg class="clip" id="connector-2" data-start="31.9" data-duration="3.03" width="1080" height="1920" style="position:absolute; inset:0; pointer-events:none;">
-        <path id="connector-2-path" d="M700 1150 L700 1170" stroke="var(--structural)" stroke-width="4" fill="none" stroke-linecap="round" />
+        <path id="connector-2-path" d="M740 1200 L740 1170" stroke="var(--structural)" stroke-width="4" fill="none" stroke-linecap="round" />
       </svg>
 
       <!-- payoff row: same 3 card archetypes, filled + checked -->
+      <div class="clip row-glow" id="row-glow" data-start="31.9" data-duration="3.03"></div>
       <div class="clip row-card hero-card slot-a" id="card-envelope-2" data-start="32.0" data-duration="2.93">
         <div class="corner-fold"></div>
         <div class="card-header"></div>
@@ -370,29 +380,56 @@
     <script>
       const tl = gsap.timeline({ paused: true });
 
-      /* ---------- EPISODE 1: weekly-routine card ---------- */
-      tl.fromTo("#week-card", { scale: 0.85, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(1.5)" }, 0.7);
-      tl.fromTo(["#week-shadow-1", "#week-shadow-2"], { opacity: 0 }, { opacity: (i) => (i === 0 ? 0.32 : 0.18), duration: 0.4, ease: "power2.out" }, 0.78);
-      tl.fromTo("#text-thesis p", { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.35, ease: "power2.out" }, 0.85);
-      tl.fromTo("#badge-mon", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.25, ease: "back.out(2)" }, 2.0);
-      tl.fromTo("#badge-wed", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.25, ease: "back.out(2)" }, 2.35);
-      tl.fromTo("#badge-fri", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.25, ease: "back.out(2)" }, 2.7);
-      tl.to(["#week-card", "#week-shadow-1", "#week-shadow-2", "#text-thesis p"], { opacity: 0, scale: 0.94, duration: 0.2, ease: "power2.in" }, 8.9);
-      tl.set(["#week-card", "#week-shadow-1", "#week-shadow-2", "#text-thesis p"], { opacity: 0 }, 9.1);
+      /* ---------- ambient: slow finite parallax drift on every background grid ---------- */
+      tl.fromTo(".grid-dots", { x: -10, y: 6 }, { x: 14, y: -8, duration: 17, ease: "sine.inOut", repeat: 1, yoyo: true }, 0);
 
-      /* ---------- EPISODE 2: 3 content cards ---------- */
-      tl.fromTo("#card-envelope", { scale: 0.85, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(1.5)" }, 9.2);
+      /* ---------- EPISODE 1: weekly-routine card — slides in from the left bleed, repeat-wobbles ---------- */
+      tl.fromTo(
+        "#week-card",
+        { x: -90, rotation: -3, scale: 0.85, opacity: 0 },
+        { x: 0, rotation: 0, scale: 1, opacity: 1, duration: 0.45, ease: "back.out(1.4)" },
+        0.7
+      );
+      tl.fromTo(["#week-shadow-1", "#week-shadow-2", "#week-shadow-3"], { opacity: 0 }, { opacity: (i) => [0.34, 0.2, 0.12][i], duration: 0.4, ease: "power2.out" }, 0.8);
+      tl.fromTo("#text-thesis p", { x: 20, opacity: 0 }, { x: 0, opacity: 1, duration: 0.4, ease: "power2.out" }, 0.95);
+      // three "again — again — again" wobbles, tied to each badge landing
+      tl.fromTo("#badge-mon", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.25, ease: "back.out(2)" }, 2.0);
+      tl.to("#week-card", { rotation: -1.4, duration: 0.14, ease: "power2.out" }, 2.0).to("#week-card", { rotation: 0, duration: 0.22, ease: "power2.inOut" }, 2.14);
+      tl.fromTo("#badge-wed", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.25, ease: "back.out(2)" }, 3.6);
+      tl.to("#week-card", { rotation: -1.4, duration: 0.14, ease: "power2.out" }, 3.6).to("#week-card", { rotation: 0, duration: 0.22, ease: "power2.inOut" }, 3.74);
+      tl.fromTo("#badge-fri", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.25, ease: "back.out(2)" }, 5.4);
+      tl.to("#week-card", { rotation: -1.4, duration: 0.14, ease: "power2.out" }, 5.4).to("#week-card", { rotation: 0, duration: 0.22, ease: "power2.inOut" }, 5.54);
+      tl.to(["#week-card", "#week-shadow-1", "#week-shadow-2", "#week-shadow-3", "#text-thesis p"], { opacity: 0, scale: 0.94, duration: 0.2, ease: "power2.in" }, 8.9);
+      tl.set(["#week-card", "#week-shadow-1", "#week-shadow-2", "#week-shadow-3", "#text-thesis p"], { opacity: 0 }, 9.1);
+
+      /* ---------- EPISODE 2: 3 content cards — dealt onto the table, not gridded ---------- */
+      tl.fromTo(
+        "#card-envelope",
+        { y: -50, rotation: 6, scale: 1.08, opacity: 0 },
+        { y: -12, rotation: -3, scale: 1.08, opacity: 1, duration: 0.45, ease: "back.out(1.6)" },
+        9.2
+      );
       tl.fromTo("#text-envelope p", { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power2.out" }, 9.35);
-      // envelope translates left to slot-a once telegram/vk join
-      tl.to("#card-envelope", { x: -320, duration: 0.35, ease: "power2.inOut" }, 12.55);
+      // envelope settles into slot-a (translate + de-rotate + scale back to row size) once telegram/vk join
+      tl.to("#card-envelope", { x: -320, y: 10, rotation: -3, scale: 1, duration: 0.4, ease: "power2.inOut" }, 12.55);
       tl.to(["#card-envelope", "#text-envelope p"], { opacity: 0, scale: 0.94, duration: 0.2, ease: "power2.in" }, 14.45);
       tl.set(["#card-envelope", "#text-envelope p"], { opacity: 0 }, 14.65);
 
-      tl.fromTo("#card-telegram", { scale: 0.85, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.35, ease: "back.out(1.5)" }, 12.55);
+      tl.fromTo(
+        "#card-telegram",
+        { y: -60, rotation: -8, scale: 1, opacity: 0 },
+        { y: -14, rotation: 2, scale: 1, opacity: 1, duration: 0.4, ease: "back.out(1.6)" },
+        12.55
+      );
       tl.to("#card-telegram", { opacity: 0, scale: 0.94, duration: 0.2, ease: "power2.in" }, 14.45);
       tl.set("#card-telegram", { opacity: 0 }, 14.65);
 
-      tl.fromTo("#card-vk", { scale: 0.85, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.35, ease: "back.out(1.5)" }, 12.9);
+      tl.fromTo(
+        "#card-vk",
+        { y: -50, rotation: 7, scale: 1, opacity: 0 },
+        { y: 6, rotation: -2, scale: 1, opacity: 1, duration: 0.4, ease: "back.out(1.6)" },
+        12.9
+      );
       tl.to("#card-vk", { opacity: 0, scale: 0.94, duration: 0.2, ease: "power2.in" }, 14.45);
       tl.set("#card-vk", { opacity: 0 }, 14.65);
 
@@ -412,8 +449,9 @@
       tl.to("#text-longway p", { opacity: 0, y: -12, duration: 0.2, ease: "power2.in" }, 20.5);
       tl.set("#text-longway p", { opacity: 0 }, 20.7);
 
-      /* ---------- SCENE C: поворот — the bar snaps down ---------- */
-      tl.to("#day-bar-fill", { scaleX: 0.08, duration: 0.4, ease: "power3.inOut" }, 20.85);
+      /* ---------- SCENE C: поворот — the bar snaps down and yanks left, punch not just shrink ---------- */
+      tl.to("#day-bar-track", { x: -30, rotation: -1.2, duration: 0.4, ease: "power3.inOut" }, 20.85);
+      tl.to("#day-bar-fill", { scaleX: 0.07, duration: 0.4, ease: "power3.inOut" }, 20.85);
       tl.to("#day-bar-track", { opacity: 0, duration: 0.3, ease: "power2.in" }, 21.35);
       tl.fromTo("#text-twist p", { y: 20, opacity: 0, scale: 0.96 }, { y: 0, opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.4)" }, 20.95);
       tl.to("#text-twist p", { opacity: 0, y: -12, duration: 0.25, ease: "power2.in" }, 25.05);
@@ -446,7 +484,13 @@
       // dock: voice bubble returns to its natural (chip) transform state
       tl.to("#voice-bubble", { scaleX: 1, scaleY: 1, x: 0, y: 0, duration: 0.25, ease: "power2.inOut" }, 30.3);
 
-      tl.fromTo("#processing-card", { scale: 0.85, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(1.5)" }, 30.3);
+      // processing card arrives tilted and asymmetric, not a plain center pop — "система" is the weak beat, give it presence
+      tl.fromTo(
+        "#processing-card",
+        { rotation: -7, scale: 0.8, opacity: 0 },
+        { rotation: -1.5, scale: 1, opacity: 1, duration: 0.4, ease: "back.out(1.6)" },
+        30.3
+      );
       tl.fromTo("#text-system p", { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "power2.out" }, 30.45);
       tl.to("#text-system p", { opacity: 0, y: -12, duration: 0.2, ease: "power2.in" }, 31.7);
       tl.set("#text-system p", { opacity: 0 }, 31.9);
@@ -454,21 +498,43 @@
         tl.fromTo(sel, { scale: 0.6 }, { scale: 1.15, duration: 0.35, ease: "sine.inOut", repeat: 5, yoyo: true }, 30.45 + i * 0.08);
       });
 
-      // connector 1 draws in once dock completes
+      // connector 1: draws in once dock completes, then becomes a flowing dash — voice -> system is a stream, not a static wire
       const c1 = document.getElementById("connector-1-path");
       const c1len = c1 ? c1.getTotalLength() : 20;
       gsap.set("#connector-1-path", { strokeDasharray: c1len, strokeDashoffset: c1len });
       tl.to("#connector-1-path", { strokeDashoffset: 0, duration: 0.2, ease: "power2.inOut" }, 30.55);
+      tl.set("#connector-1-path", { strokeDasharray: "12 7" }, 30.8);
+      tl.fromTo("#connector-1-path", { strokeDashoffset: 0 }, { strokeDashoffset: -190, duration: 1.1, ease: "none", repeat: 3 }, 30.8);
 
-      /* ---------- EPISODE 4 payoff ---------- */
+      /* ---------- EPISODE 4 payoff — converges from three directions, then a settle bloom ---------- */
       const c2 = document.getElementById("connector-2-path");
       const c2len = c2 ? c2.getTotalLength() : 20;
       gsap.set("#connector-2-path", { strokeDasharray: c2len, strokeDashoffset: c2len });
       tl.to("#connector-2-path", { strokeDashoffset: 0, duration: 0.2, ease: "power2.inOut" }, 31.9);
+      tl.set("#connector-2-path", { strokeDasharray: "10 6" }, 32.15);
+      tl.fromTo("#connector-2-path", { strokeDashoffset: 0 }, { strokeDashoffset: -160, duration: 1, ease: "none", repeat: 1 }, 32.15);
 
-      tl.fromTo("#card-envelope-2", { scale: 0.85, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(1.5)" }, 32.0);
-      tl.fromTo("#card-telegram-2", { scale: 0.85, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(1.5)" }, 32.15);
-      tl.fromTo("#card-vk-2", { scale: 0.85, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(1.5)" }, 32.3);
+      tl.fromTo("#row-glow", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.out" }, 32.45);
+      tl.to("#row-glow", { opacity: 0.45, duration: 0.6, ease: "power2.inOut" }, 32.95);
+
+      tl.fromTo(
+        "#card-envelope-2",
+        { x: -70, y: -55, rotation: -9, scale: 0.85, opacity: 0 },
+        { x: 0, y: 0, rotation: -2, scale: 1, opacity: 1, duration: 0.4, ease: "back.out(1.6)" },
+        32.0
+      );
+      tl.fromTo(
+        "#card-telegram-2",
+        { y: -70, rotation: 0, scale: 0.85, opacity: 0 },
+        { y: 0, rotation: 0, scale: 1, opacity: 1, duration: 0.4, ease: "back.out(1.6)" },
+        32.15
+      );
+      tl.fromTo(
+        "#card-vk-2",
+        { x: 70, y: -55, rotation: 9, scale: 0.85, opacity: 0 },
+        { x: 0, y: 0, rotation: 2, scale: 1, opacity: 1, duration: 0.4, ease: "back.out(1.6)" },
+        32.3
+      );
 
       tl.fromTo("#check-1", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.2, ease: "back.out(2)" }, 32.5);
       tl.fromTo("#check-2", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.2, ease: "back.out(2)" }, 32.6);
